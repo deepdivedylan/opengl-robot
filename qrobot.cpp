@@ -5,7 +5,7 @@
 #define INITIAL_WINDOW_SIZE 500
 
 //! QRobot Constructor
-/*! Allocates objects needed by QRobot. Also sets up initial parameters. 
+/*! Allocates objects needed by QRobot. Also sets up initial parameters.
   \param parent parent QWidget; automatically handled by Qt */
 QRobot::QRobot(QWidget *parent) : QGLWidget(parent)
 {
@@ -89,7 +89,7 @@ void QRobot::dropCube()
 	const double dt = 0.001, g = 9.80665;
 	double h = robot->getCubeHeight();
 	double a = g, dv, v_old = 0.0, v = 0.0, dx, x_old = 0.0, x = 0.0, t = 0.0;
-	
+
 	while (x < h)
 	{
 		a = ((mass * g) - (alpha * pow(v_old, 2.0))) / mass;
@@ -108,7 +108,7 @@ void QRobot::dropCube()
 }
 
 //! Load Cube Textures
-/*! This method reads \c textures/diceN.png (for \f$n=1,2,\cdots,6\f$) and converts them from PNG to OpenGL format. The OpenGL images are then stored in the faces array. */ 
+/*! This method reads \c textures/diceN.png (for \f$n=1,2,\cdots,6\f$) and converts them from PNG to OpenGL format. The OpenGL images are then stored in the faces array. */
 void QRobot::loadFaces()
 {
 	QImage buffer;
@@ -141,7 +141,7 @@ void QRobot::setCurrLight(unsigned short newLight)
 	updateGL();
 	if (currLight != NONE)
 		emit lightMoved(currLightCoords);
-	
+
 }
 
 //! Set Texturing Flag
@@ -196,7 +196,7 @@ void QRobot::setMaterial(unsigned short newMat)
 }
 
 //! Mode Slot
-/*! This is used by QWindow to set whether the Robot is in view/rotate mode or control mode. 
+/*! This is used by QWindow to set whether the Robot is in view/rotate mode or control mode.
   \param whichMode the new mode */
 void QRobot::setMode(bool whichMode)
 {
@@ -255,7 +255,7 @@ void QRobot::resizeGL(int w, int h)
 	window_width = w;
 	window_height = h;
 	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(60.0, 1.0, 1.0, zoomDistance);
@@ -359,7 +359,7 @@ void QRobot::mouseMoveEvent(QMouseEvent *event)
 
 	int dx = event->x() - lastPos.x();
 	int dy = event->y() - lastPos.y();
-	
+
 	/* rotate the world */
 	if (viewMode && (event->buttons() & Qt::LeftButton))
 	{
@@ -397,7 +397,7 @@ void QRobot::mouseReleaseEvent(QMouseEvent *event)
 }
 
 //! Get Finger Angle
-/*! This method is used by QWindow to retreive the angle between the wrist and fingers. 
+/*! This method is used by QWindow to retreive the angle between the wrist and fingers.
   \return the angle */
 double QRobot::getFingerAngle()
 {
@@ -429,7 +429,7 @@ double QRobot::getTemperature()
 }
 
 //! Error Message Function
-/*! This method displays a Qt-style error message in case (God forbid) an error occurs. 
+/*! This method displays a Qt-style error message in case (God forbid) an error occurs.
   \param msg the error message */
 void QRobot::Error(char *msg)
 {
