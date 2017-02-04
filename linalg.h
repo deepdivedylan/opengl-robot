@@ -116,7 +116,7 @@ class LinAlgException
 public:
 	//! Default Constructor
 	/*! Creates an empty exception. */
-	LinAlgException(){message="";}
+	LinAlgException(){message=(char *)"";}
 	//! Full Constructor
 	/*! Creates an exception with an error message \a msg.
 	 \param msg the error message */
