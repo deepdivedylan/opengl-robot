@@ -6,6 +6,92 @@
 
 static int detFactor;
 
+//! Scalar Multiplication Operator
+/*! Friend function that multiplies a Matrix \a m by a scalar \a k.
+  \param k the scalar to multiply by
+  \param m the Matrix
+  \return the resulting Matrix */
+Matrix operator*(double k,Matrix &m)
+{
+	Matrix answer(m.m,m.n);
+	for (unsigned int i=0;i<m.m;i++)
+		for (unsigned int j=0;j<m.n;j++)
+			answer[i][j]=k*m.matrix[i][j];
+	return answer;
+}
+
+//! Scalar Multiplication Operator
+/*! Friend function that multiplies a Matrix \a m by a scalar \a k.
+  \param m the Matrix
+  \param k the scalar to multiply by
+  \return the resulting Matrix */
+Matrix operator*(Matrix &m,double k)
+{
+	return operator*(k,m);
+}
+
+//! Scalar Division Operator
+/*! Friend function that divides a Matrix \a m by a scalar \a k.
+  \param m the Matrix
+  \param k the scalar
+  \throw LinAlgException if \f$k=0\f$.
+  \return the resulting Matrix */
+Matrix operator/(Matrix &m,double k)
+{
+	if (k==0)
+		throw LinAlgException("Divide by zero");
+	Matrix answer(m.m,m.n);
+	for (unsigned int i=0;i<m.m;i++)
+		for (unsigned int j=0;j<m.n;j++)
+			answer[i][j]=m.matrix[i][j]/k;
+	return answer;
+}
+
+//! Outdirection Operator
+/*! Friend function that prints a Matrix \a m to \a os.
+  \param os the output stream
+  \param m the Matrix to output
+  \return the output stream */
+ostream &operator<<(ostream &os,Matrix &m)
+{
+	for (unsigned int i=0;i<m.m;i++)
+	{
+		for (unsigned int j=0;j<m.n;j++)
+		{
+			if (j!=(m.n-1))
+				os<<m.matrix[i][j]<<" ";
+			else
+				os<<m.matrix[i][j];
+		}
+		if (i!=(m.m-1))
+			os<<std::endl;
+	}
+	return os;
+}
+
+//! Indirection Operator
+/*! Friend function that reads a Matrix \a m from \a is.
+  \param is the input stream
+  \param m the Matrix to read
+  \return the intput stream */
+istream &operator>>(istream &is,Matrix &m)
+{
+	for (unsigned int i=0;i<m.m;i++)
+		for (unsigned int j=0;j<m.n;j++)
+			is>>m.matrix[i][j];
+	return is;
+}
+
+//! Accessor Method
+/*! Accesses the value at \f$M_{ab}\f$.
+  \param a the row of the value
+  \param b the column of the value
+  \return the value */
+double Matrix::at(unsigned int a,unsigned int b)
+{
+	return matrix[a][b];
+}
+
 //! Default Constructor
 /*! Creates an empty \f$0\times0\f$ Matrix. */
 Matrix::Matrix()
@@ -274,7 +360,7 @@ Matrix Matrix::operator*=(Matrix &other)
   \return the resulting Matrix */
 Matrix Matrix::operator*=(double k)
 {
-	*this=::operator*(*this,k);
+	*this=::operator*(k,*this);
 	return *this;
 }
 
@@ -296,92 +382,6 @@ Matrix Matrix::operator/=(double k)
 double *Matrix::operator[](unsigned int a)
 {
 	return matrix[a];
-}
-
-//! Scalar Multiplication Operator
-/*! Friend function that multiplies a Matrix \a m by a scalar \a k.
-  \param k the scalar to multiply by
-  \param m the Matrix
-  \return the resulting Matrix */
-Matrix operator*(double k,Matrix &m)
-{
-	Matrix answer(m.m,m.n);
-	for (unsigned int i=0;i<m.m;i++)
-		for (unsigned int j=0;j<m.n;j++)
-			answer[i][j]=k*m.matrix[i][j];
-	return answer;
-}
-
-//! Scalar Multiplication Operator
-/*! Friend function that multiplies a Matrix \a m by a scalar \a k.
-  \param m the Matrix
-  \param k the scalar to multiply by
-  \return the resulting Matrix */
-Matrix operator*(Matrix &m,double k)
-{
-	return operator*(k,m);
-}
-
-//! Scalar Division Operator
-/*! Friend function that divides a Matrix \a m by a scalar \a k.
-  \param m the Matrix
-  \param k the scalar
-  \throw LinAlgException if \f$k=0\f$.
-  \return the resulting Matrix */
-Matrix operator/(Matrix &m,double k)
-{
-	if (k==0)
-		throw LinAlgException("Divide by zero");
-	Matrix answer(m.m,m.n);
-	for (unsigned int i=0;i<m.m;i++)
-		for (unsigned int j=0;j<m.n;j++)
-			answer[i][j]=m.matrix[i][j]/k;
-	return answer;
-}
-
-//! Outdirection Operator
-/*! Friend function that prints a Matrix \a m to \a os.
-  \param os the output stream
-  \param m the Matrix to output
-  \return the output stream */
-ostream &operator<<(ostream &os,Matrix &m)
-{
-	for (unsigned int i=0;i<m.m;i++)
-	{
-		for (unsigned int j=0;j<m.n;j++)
-		{
-			if (j!=(m.n-1))
-				os<<m.matrix[i][j]<<" ";
-			else
-				os<<m.matrix[i][j];
-		}
-		if (i!=(m.m-1))
-			os<<std::endl;
-	}
-	return os;
-}
-
-//! Indirection Operator
-/*! Friend function that reads a Matrix \a m from \a is.
-  \param is the input stream
-  \param m the Matrix to read
-  \return the intput stream */
-istream &operator>>(istream &is,Matrix &m)
-{
-	for (unsigned int i=0;i<m.m;i++)
-		for (unsigned int j=0;j<m.n;j++)
-			is>>m.matrix[i][j];
-	return is;
-}
-
-//! Accessor Method
-/*! Accesses the value at \f$M_{ab}\f$.
-  \param a the row of the value
-  \param b the column of the value
-  \return the value */
-double Matrix::at(unsigned int a,unsigned int b)
-{
-	return matrix[a][b];
 }
 
 #if 0
