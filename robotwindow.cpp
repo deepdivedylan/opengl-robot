@@ -1,5 +1,6 @@
 #include "robot.h"
-#include <QtGui>
+#include <QMenu>
+#include <QMessageBox>
 
 //! RobotWindow Constructor
 /*! Allocates objects needed by RobotWindow and calls helper functions to create, pack and connect widgets.
