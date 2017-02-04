@@ -1,9 +1,11 @@
 #include <cfloat>
 #include <cmath>
+#include <cstdlib>
+
 #include "linalg.h"
 
 static int detFactor;
-		
+
 //! Default Constructor
 /*! Creates an empty \f$0\times0\f$ Matrix. */
 Matrix::Matrix()
@@ -63,8 +65,8 @@ Matrix::Matrix(unsigned int a,unsigned int b)
 /*! Creates a \f$b\times b\f$ Matrix with data from \a values where \f$b=\sqrt a\f$.
   \param values array containg the data to load
   \param a number of elements in \a values
-  \param colOrder if true, \a values is in column major order (default); if false, \a values is assumed to be in row major order 
-  \throw LinAlgException if \a a is not a square number 
+  \param colOrder if true, \a values is in column major order (default); if false, \a values is assumed to be in row major order
+  \throw LinAlgException if \a a is not a square number
   \sa load() */
 Matrix::Matrix(double *values,unsigned int a,bool colOrder)
 {
@@ -120,7 +122,7 @@ Matrix::Matrix(double **values,unsigned int a,unsigned int b)
 
 //! std::vector Constructor
 /*! Creates a  Matrix from the std::vector< std::vector<double> > \a values. \a values is assumed to be in row major order.
-  \param values std::vector containing the data to load 
+  \param values std::vector containing the data to load
   \throw LinAlgException if the std::vector is not rectangular */
 Matrix::Matrix(std::vector< std::vector<double> > &values)
 {
@@ -544,11 +546,11 @@ Matrix &Matrix::inverse()
 }
 
 //! OpenGL glGetDoublev() Compatible Loader
-/*! Creates a \f$b\times b\f$ Matrix with data from \a values where \f$b=\sqrt a\f$. If the Matrix is not already \f$b\times b\f$, load() will adjust the Matrix. 
+/*! Creates a \f$b\times b\f$ Matrix with data from \a values where \f$b=\sqrt a\f$. If the Matrix is not already \f$b\times b\f$, load() will adjust the Matrix.
   \param values array containg the data to load
   \param a number of elements in \a values
-  \param colOrder if true, \a values is in column major order (default); if false, \a values is assumed to be in row major order 
-  \throw LinAlgException if \a a is not a square number 
+  \param colOrder if true, \a values is in column major order (default); if false, \a values is assumed to be in row major order
+  \throw LinAlgException if \a a is not a square number
   \sa set() */
 void Matrix::load(double *values,unsigned int a,bool colOrder)
 {
@@ -683,7 +685,7 @@ struct LUDecomposition &Matrix::LU(Matrix &b)
 /*! Pivots around \f$M_{ab}\f$ ``in place'' and will row reduce if rowReduce is true.
   \param a the row to pivot on
   \param b the column to pivot on
-  \param rowReduce if true, row reductions will be performed in addition to pivot operations (default); if false, it will only pivot 
+  \param rowReduce if true, row reductions will be performed in addition to pivot operations (default); if false, it will only pivot
   \throw LinAlgException if dimensions are out of bounds
   \sa inverse()
   \sa LU()
@@ -741,7 +743,7 @@ void Matrix::rref()
 //! OpenGL glGetDoublev() Compatible Mutator
 /*! This function works like load() except it will not attempt to resize the Matrix.
   \param values array containg the data to load
-  \param colOrder if true, \a values is in column major order (default); if false, \a values is assumed to be in row major order 
+  \param colOrder if true, \a values is in column major order (default); if false, \a values is assumed to be in row major order
   \sa load() */
 void Matrix::set(double *values,bool colOrder)
 {
