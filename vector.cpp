@@ -4,6 +4,76 @@
 
 #include "linalg.h"
 
+//! Scalar Multiplication Operator
+/*! Friend function that implements \f$k\overrightarrow v\f$.
+  \param k the scalar
+  \param v the Vector
+  \return the resulting Vector */
+Vector operator*(double k,Vector &v)
+{
+	Vector answer(v.n);
+	for (unsigned int i=0;i<v.n;i++)
+		answer.vector[i]=k*v.vector[i];
+	return answer;
+}
+
+//! Scalar Multiplication Operator
+/*! Friend function that implements \f$\overrightarrow vk\f$.
+  \param v the Vector
+  \param k the scalar
+  \return the resulting Vector */
+Vector operator*(Vector &v,double k)
+{
+	return operator*(k,v);
+}
+
+//! Scalar Division Operator
+/*! Friend function that implements \f$\frac{\overrightarrow v}k\f$.
+  \param v the Vector
+  \param k the scalar
+  \throw LinAlgException if \f$k=0\f$.
+  \return the resulting Vector */
+Vector operator/(Vector &v,double k)
+{
+	if (fabs(k)<DBL_EPSILON)
+		throw LinAlgException("Divide by zero");
+	Vector answer(v.n);
+	for (unsigned int i=0;i<v.n;i++)
+		answer.vector[i]=v.vector[i]/k;
+	return answer;
+}
+
+//! Outdirection Operator
+/*! Friend function that prints a Vector \a v to \a os.
+  \param os the output stream
+  \param v the Vector to output
+  \return the output stream */
+ostream &operator<<(ostream &os,Vector &v)
+{
+	os<<"<";
+	for (unsigned int i=0;i<v.n;i++)
+	{
+		if (i!=(v.n-1))
+			os<<v.vector[i]<<",";
+		else
+			os<<v.vector[i];
+	}
+	os<<">";
+	return os;
+}
+
+//! Indirection Operator
+/*! Friend function that reads a Vector \a v from \a is.
+  \param is the input stream to read from
+  \param v the Vector to store data in
+  \return the input stream */
+istream &operator>>(istream &is,Vector &v)
+{
+	for (unsigned int i=0;i<v.n;i++)
+		is>>v.vector[i];
+	return is;
+}
+
 //! Default Constructor
 /*! Creates an empty Vector with no dimension. */
 Vector::Vector()
@@ -269,76 +339,6 @@ bool Vector::operator!=(Vector &other)
 double Vector::operator[](unsigned int a)
 {
 	return vector[a];
-}
-
-//! Scalar Multiplication Operator
-/*! Friend function that implements \f$k\overrightarrow v\f$.
-  \param k the scalar
-  \param v the Vector
-  \return the resulting Vector */
-Vector operator*(double k,Vector &v)
-{
-	Vector answer(v.n);
-	for (unsigned int i=0;i<v.n;i++)
-		answer.vector[i]=k*v.vector[i];
-	return answer;
-}
-
-//! Scalar Multiplication Operator
-/*! Friend function that implements \f$\overrightarrow vk\f$.
-  \param v the Vector
-  \param k the scalar
-  \return the resulting Vector */
-Vector operator*(Vector &v,double k)
-{
-	return operator*(k,v);
-}
-
-//! Scalar Division Operator
-/*! Friend function that implements \f$\frac{\overrightarrow v}k\f$.
-  \param v the Vector
-  \param k the scalar
-  \throw LinAlgException if \f$k=0\f$.
-  \return the resulting Vector */
-Vector operator/(Vector &v,double k)
-{
-	if (fabs(k)<DBL_EPSILON)
-		throw LinAlgException("Divide by zero");
-	Vector answer(v.n);
-	for (unsigned int i=0;i<v.n;i++)
-		answer.vector[i]=v.vector[i]/k;
-	return answer;
-}
-
-//! Outdirection Operator
-/*! Friend function that prints a Vector \a v to \a os.
-  \param os the output stream
-  \param v the Vector to output
-  \return the output stream */
-ostream &operator<<(ostream &os,Vector &v)
-{
-	os<<"<";
-	for (unsigned int i=0;i<v.n;i++)
-	{
-		if (i!=(v.n-1))
-			os<<v.vector[i]<<",";
-		else
-			os<<v.vector[i];
-	}
-	os<<">";
-	return os;
-}
-
-//! Indirection Operator
-/*! Friend function that reads a Vector \a v from \a is.
-  \param is the input stream to read from
-  \param v the Vector to store data in
-  \return the input stream */
-istream &operator>>(istream &is,Vector &v)
-{
-	for (unsigned int i=0;i<v.n;i++)
-		is>>v.vector[i];
-	return is;
 }
 
 //! Angle Between Two Vectors
