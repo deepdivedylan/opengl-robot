@@ -1,5 +1,5 @@
 #include "robot.h"
-#include <QtGui>
+#include <QColorDialog>
 
 //! Lighting constructor
 /*! Allocates needed objects and sets default parameters.
@@ -100,7 +100,7 @@ void Lighting::disable()
 //! GetType Accessor Method
 /*! Tells the type of the specified light.
   \param lightNum the light to check
-  \return Enumerated light type */ 
+  \return Enumerated light type */
 unsigned short Lighting::getType(unsigned short lightNum)
 {
 	switch (lightNum)
