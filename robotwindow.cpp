@@ -1,22 +1,22 @@
 #include "robot.h"
 #include <QtGui>
 
-//! QWindow Constructor
-/*! Allocates objects needed by QWindow and calls helper functions to create, pack and connect widgets.
+//! RobotWindow Constructor
+/*! Allocates objects needed by RobotWindow and calls helper functions to create, pack and connect widgets.
   \param parent parent widget - automatically handled by Qt */
-QWindow::QWindow(QWidget *parent) : QWidget(parent)
+RobotWindow::RobotWindow(QWidget *parent) : QWidget(parent)
 {
 	/* the main objects this interface controls */
 	qrobot = new QRobot();
 	qrobot->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	lights = qrobot->getLights();
 	connect(qrobot, SIGNAL(lightMoved(GLfloat *)), this, SLOT(lightMoved(GLfloat *)));
-	
+
 	/* construct widgets */
 	mainWidgets();
 	lightWidgets();
 	visualWidgets();
-	
+
 	/* set widget options */
 	viewControl();
 	physics();
@@ -35,7 +35,7 @@ QWindow::QWindow(QWidget *parent) : QWidget(parent)
 //! Texture Slot
 /*! Receives user input and changes the texture of the Cube.
   \param action the user's choice */
-void QWindow::cubeTexture(QAction *action)
+void RobotWindow::cubeTexture(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -58,7 +58,7 @@ void QWindow::cubeTexture(QAction *action)
 //! Current Light Slot
 /*! Receives user input and changes the current light.
   \param action the user's choice */
-void QWindow::currentLight(QAction *action)
+void RobotWindow::currentLight(QAction *action)
 {
 	unsigned short oldLight = qrobot->getCurrLight();
 	QString actionText = action->text();
@@ -125,7 +125,7 @@ void QWindow::currentLight(QAction *action)
 		default:
 			break;
 	}
-	
+
 	/* the user shouldn't be able to manually change the current light's position */
 	/* instead, they can rotate the camera */
 	if (actionText == "(None)")
@@ -222,7 +222,7 @@ void QWindow::currentLight(QAction *action)
 //! Material Slot
 /*! Receives user input and changes the material the Robot is made of.
   \param action the user's choice */
-void QWindow::robotMaterial(QAction *action)
+void RobotWindow::robotMaterial(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -241,7 +241,7 @@ void QWindow::robotMaterial(QAction *action)
 //! Light Moved Slot
 /*! Receives the updated coordinates of the current light from QRobot and updates the user interface.
   \param coords the new position */
-void QWindow::lightMoved(GLfloat *coords)
+void RobotWindow::lightMoved(GLfloat *coords)
 {
 	switch(qrobot->getCurrLight())
 	{
@@ -288,7 +288,7 @@ void QWindow::lightMoved(GLfloat *coords)
 //! Light 1 Slot
 /*! Receives user input and changes the type of light 1.
   \param action the user's choice */
-void QWindow::menu1(QAction *action)
+void RobotWindow::menu1(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -321,7 +321,7 @@ void QWindow::menu1(QAction *action)
 //! Light 2 Slot
 /*! Receives user input and changes the type of light 2.
   \param action the user's choice */
-void QWindow::menu2(QAction *action)
+void RobotWindow::menu2(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -354,7 +354,7 @@ void QWindow::menu2(QAction *action)
 //! Light 3 Slot
 /*! Receives user input and changes the type of light 3.
   \param action the user's choice */
-void QWindow::menu3(QAction *action)
+void RobotWindow::menu3(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -387,7 +387,7 @@ void QWindow::menu3(QAction *action)
 //! Light 4 Slot
 /*! Receives user input and changes the type of light 4.
   \param action the user's choice */
-void QWindow::menu4(QAction *action)
+void RobotWindow::menu4(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -420,7 +420,7 @@ void QWindow::menu4(QAction *action)
 //! Light 5 Slot
 /*! Receives user input and changes the type of light 5.
   \param action the user's choice */
-void QWindow::menu5(QAction *action)
+void RobotWindow::menu5(QAction *action)
 {
 	QString actionText = action->text();
 	action->setChecked(true);
@@ -452,7 +452,7 @@ void QWindow::menu5(QAction *action)
 
 //! Main Widget Helper Function
 /*! Allocates all the widgets in the main group. */
-void QWindow::mainWidgets()
+void RobotWindow::mainWidgets()
 {
 	/* control/view mode controls */
 	zoomLabel = new QLabel(tr("Zoom"));
@@ -463,13 +463,13 @@ void QWindow::mainWidgets()
 	zoomSlider = new QSlider(Qt::Horizontal);
 	fingerSlider = new QSlider(Qt::Horizontal);
 	cubeStatus = new QLabel(tr("Cube is on the floor."));
-	
+
 	/* main angle controls */
 	controlBox = new QGroupBox(tr("Physics Controls"));
 	tempLabel = new QLabel(tr("Temperature (C)"));
 	massLabel = new QLabel(tr("Mass"));
 	dragLabel = new QLabel(tr("Drag Coefficient"));
-	
+
 	/* spin boxes */
 	tempSpin = new QDoubleSpinBox;
 	massSpin = new QDoubleSpinBox;
@@ -487,7 +487,7 @@ void QWindow::mainWidgets()
 
 //! Light Widget Helper Function
 /*! Allocates all objects in the Lighting group. */
-void QWindow::lightWidgets()
+void RobotWindow::lightWidgets()
 {
 	/* lighting controls */
 	lightBox = new QGroupBox(tr("Lighting Controls"));
@@ -586,7 +586,7 @@ void QWindow::lightWidgets()
 
 //! Light 1 Helper Function
 /*! Sets options for the widgets that control light 1. */
-void QWindow::light1()
+void RobotWindow::light1()
 {
 	/* light 1 control options */
 	lightBox->setCheckable(true);
@@ -635,7 +635,7 @@ void QWindow::light1()
 
 //! Light 2 Helper Function
 /*! Sets options for the widgets that control light 2. */
-void QWindow::light2()
+void RobotWindow::light2()
 {
 	/* light 2 control options */
 	lightMenu2->addAction(directional2);
@@ -681,7 +681,7 @@ void QWindow::light2()
 
 //! Light 3 Helper Function
 /*! Sets options for the widgets that control light 3. */
-void QWindow::light3()
+void RobotWindow::light3()
 {
 	/* light 3 control options */
 	lightMenu3->addAction(directional3);
@@ -724,7 +724,7 @@ void QWindow::light3()
 
 //! Light 4 Helper Function
 /*! Sets options for the widgets that control light 4. */
-void QWindow::light4()
+void RobotWindow::light4()
 {
 	/* light 4 control options */
 	lightMenu4->addAction(directional4);
@@ -767,7 +767,7 @@ void QWindow::light4()
 
 //! Light 5 Helper Function
 /*! Sets options for the widgets that control light 5. */
-void QWindow::light5()
+void RobotWindow::light5()
 {
 	/* light 5 control options */
 	lightMenu5->addAction(directional5);
@@ -810,7 +810,7 @@ void QWindow::light5()
 
 //! Light Widget Pack Function
 /*! Packs up all the Lighting widgets. */
-void QWindow::packLights()
+void RobotWindow::packLights()
 {
 	/* pack up the lighting conrols */
 	lightGrid->addWidget(lightType1, 0, 0, 1, 2);
@@ -873,18 +873,18 @@ void QWindow::packLights()
 
 //! Main Pack Function
 /*! Packs up the main interface. */
-void QWindow::packMain()
+void RobotWindow::packMain()
 {
 	/* additional controls */
 	additionalLayout->addWidget(controlBox);
 	additionalLayout->addWidget(visualBox);
 	additionalBox->setLayout(additionalLayout);
-	
+
 	/* overall container for controls */
 	controlContainerBox->addWidget(viewControls, 0, 0);
 	controlContainerBox->addWidget(lightBox, 1, 0, 1, 3);
 	controlContainer->setLayout(controlContainerBox);
-	
+
 	/* main layout */
 	mainLayout->addWidget(qrobot, 0, 0);
 	mainLayout->addWidget(additionalBox, 0, 1);
@@ -895,7 +895,7 @@ void QWindow::packMain()
 
 //! Physics Helper Function
 /*! Sets the options for the physics widgets. */
-void QWindow::physics()
+void RobotWindow::physics()
 {
 	/* spin box options */
 	tempSpin->setMinimum(-40.0);
@@ -908,12 +908,12 @@ void QWindow::physics()
 	dragSpin->setMaximum(3.0);
 	dragSpin->setSingleStep(0.1);
 	dragSpin->setValue(qrobot->getDrag());
-	
+
 	/* spin box signals */
 	connect(tempSpin, SIGNAL(valueChanged(double)), qrobot, SLOT(setTemperature(double)));
 	connect(massSpin, SIGNAL(valueChanged(double)), qrobot, SLOT(setMass(double)));
 	connect(dragSpin, SIGNAL(valueChanged(double)), qrobot, SLOT(setDrag(double)));
-	
+
 	/* pack up the physics controls */
 	controlGrid->addWidget(tempLabel, 0, 0);
     	controlGrid->addWidget(tempSpin, 0, 1);
@@ -926,7 +926,7 @@ void QWindow::physics()
 
 //! View Control Helper Function
 /*! Sets the options for the robot movement/viewing control widgets. */
-void QWindow::viewControl()
+void RobotWindow::viewControl()
 {
 	/* view control options */
 	viewRadio->setChecked(true);
@@ -941,7 +941,7 @@ void QWindow::viewControl()
 	fingerSlider->setTickInterval(50);
 	fingerSlider->setTickPosition(QSlider::TicksBelow);
 	fingerSlider->setValue(0);
-	
+
 	/* pack up the view control objects */
 	viewControlsBox->addWidget(viewRadio);
 	viewControlsBox->addWidget(controlRadio);
@@ -952,7 +952,7 @@ void QWindow::viewControl()
 	viewControlsBox->addWidget(cubeStatus);
 	viewControlsBox->addStretch(1);
 	viewControls->setLayout(viewControlsBox);
-	
+
 	/* view control signals */
 	connect(viewRadio, SIGNAL(toggled(bool)), qrobot, SLOT(setMode(bool)));
 	connect(zoomSlider, SIGNAL(valueChanged(int)), qrobot, SLOT(setZoom(int)));
@@ -962,7 +962,7 @@ void QWindow::viewControl()
 
 //! Visual Helper Function
 /*! Sets options for the visual effects widgets. */
-void QWindow::visual()
+void RobotWindow::visual()
 {
 	/* current light menu */
 	currLightMenu->addAction(noLight);
@@ -1032,7 +1032,7 @@ void QWindow::visual()
 
 //! Visual Effects Widget Helper Function */
 /*! Allocates all the widgets in the visual effects group. */
-void QWindow::visualWidgets()
+void RobotWindow::visualWidgets()
 {
 	/* main layout */
 	visualBox = new QGroupBox(tr("Other Visual Effects"));
