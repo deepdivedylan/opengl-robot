@@ -1,6 +1,7 @@
 #ifndef LINALG_H
 #define LINALG_H
 
+#include <cstring>
 #include <iostream>
 #include <vector>
 using std::istream;
@@ -120,7 +121,10 @@ public:
 	//! Full Constructor
 	/*! Creates an exception with an error message \a msg.
 	 \param msg the error message */
-	LinAlgException(char *msg){message=msg;}
+	LinAlgException(const char *msg) {
+		message = new char[strlen(msg)];
+		strcpy(message, msg);
+	}
 	//! Destructor
 	/*! Currently does nothing. */
 	~LinAlgException(){}
