@@ -15,7 +15,6 @@
 #include <QGLWidget>
 #include <QGridLayout>
 #include <QGroupBox>
-#include <QtGui>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
