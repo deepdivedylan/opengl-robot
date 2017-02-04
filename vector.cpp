@@ -1,5 +1,7 @@
 #include <cfloat>
 #include <cmath>
+#include <cstdlib>
+
 #include "linalg.h"
 
 //! Default Constructor
@@ -120,7 +122,7 @@ Vector &Vector::operator=(const Vector &other)
 //! Addition Operator
 /*! Adds two Vector together.
   \param other the Vector to add
-  \throw LinAlgException if the dimensions don't match 
+  \throw LinAlgException if the dimensions don't match
   \return the resulting Vector */
 Vector Vector::operator+(Vector &other)
 {
@@ -343,7 +345,7 @@ istream &operator>>(istream &is,Vector &v)
 /*! Finds the angle \f$\theta\f$ between two Vectors such that: \f$\theta=\cos^{-1}(\hat u\cdot\hat v)\f$.
   \param other the other Vector to find the angle between
   \return the angle
-  \throw LinAlgException if both Vectors aren't the same dimension */ 
+  \throw LinAlgException if both Vectors aren't the same dimension */
 double Vector::angle(Vector &other)
 {
 	if (n!=other.n)
