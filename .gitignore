@@ -1,2 +1,3 @@
-Makefile
+/Makefile
 *.o
+moc_*.cpp
