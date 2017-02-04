@@ -8,8 +8,18 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #endif
+
+#include <QActionGroup>
+#include <QCheckBox>
+#include <QDoubleSpinBox>
 #include <QGLWidget>
+#include <QGridLayout>
+#include <QGroupBox>
 #include <QtGui>
+#include <QLabel>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSlider>
 #include "linalg.h"
 
 /*! \file robot.h
@@ -76,7 +86,7 @@ signals:
 	//! GLDraw Signal
 	/*! Signal emitted when the scene needs to be redrawn. This is needed because the Lighting class can't directly access the OpenGL scene. */
 	void GLDraw();
-	
+
 public slots:
 	/* methods that receive input from QT */
 	void masterSwitch(bool state);
@@ -115,7 +125,7 @@ public slots:
 	void setZ3(double newZ);
 	void setZ4(double newZ);
 	void setZ5(double newZ);
-	
+
 protected:
 	//! Light Switch Bit Field
 	/*! Bit field with the switches for all lights. */
@@ -221,7 +231,7 @@ public:
 protected:
 	//! Drop Flag
 	/*! If true, the cube has been dropped; if false, the cube has not been dropped. */
-	bool drop; 
+	bool drop;
 	//! Grab Flag
 	/*! If true, the cube has been grabbed; if false, the cube has not been grabbed. */
 	bool grab;
@@ -291,7 +301,7 @@ public:
 	double getDrag();
 	double getMass();
 	double getTemperature();
-	
+
 public slots:
 	void GLDraw();
 	void setFingerAngle(int newFingerAngle);
@@ -317,21 +327,21 @@ protected:
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
-	
+
 private:
 	//! Widget Width
 	/*! \deprecated This variable may be removed in future revisions */
 	int window_width;
-	//! Widget Height 
+	//! Widget Height
 	/*! \deprecated This variable may be removed in future revisions */
 	int window_height;
 	//! Drag Coeffecient
 	/*! Coefficient for air drag; used when dropping the Cube */
 	double drag;
-	//! Mass 
+	//! Mass
 	/*! Mass of the Cube; used when dropping the Cube */
 	double mass;
-	//! Temperature 
+	//! Temperature
 	/*! Temperature of the room (affects air drag); used when dropping the Cube */
 	double temperature;
 	//! Finger Rotation
@@ -373,18 +383,18 @@ private:
 	//! Lighting
 	/*! The lighting itself */
 	Lighting *lights;
-	
+
 	void Error(char *msg);
 	void drawFloor();
 };
 
 //! Qt Window Class
 /*! A class that builds and drives the main user interface. QWindow is connected via signals and slots to QRobot and Lighting. */
-class QWindow : public QWidget
+class RobotWindow : public QWidget
 {
 	Q_OBJECT
 public:
-	QWindow(QWidget *parent = 0);
+	RobotWindow(QWidget *parent = 0);
 
 public slots:
 	void menu1(QAction *action);
