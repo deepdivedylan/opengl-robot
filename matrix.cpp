@@ -648,10 +648,10 @@ struct LUDecomposition &Matrix::LU(Matrix &b)
 				y.matrix[i][0]=(b.matrix[i][0]-c)/L.matrix[i][i];
 			}
 			/* solve x by back substitution */
-			for (unsigned int i=m-1;i>=0&&i<m;i--)
+			for (unsigned int i=m-1;i<m;i--)
 			{
 				c=0.0;
-				for (unsigned int j=i+1;j>=0&&j<m;j++)
+				for (unsigned int j=i+1;j<m;j++)
 					c+=U.matrix[i][j]*b[j][0];
 				b.matrix[i][0]=y.matrix[i][0]-c;
 			}
