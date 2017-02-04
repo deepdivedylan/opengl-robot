@@ -10,6 +10,7 @@ HEADERS = robot.h \
 	  linalg.h
 TARGET = robot
 CONFIG += qt debug
+LIBS += -lGL -lGLU
 QT += opengl widgets
 macx {
 	DEFINES = MacOSX
