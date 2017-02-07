@@ -15,3 +15,10 @@ QT += opengl widgets
 macx {
 	DEFINES = MacOSX
 }
+win32 {
+	# downloading Windows 10 SDK is necessary in addition to Visual Studio
+	DEFINES = Win32
+	INCLUDEPATH += "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include"
+	INCLUDEPATH += "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include"
+	INCLUDEPATH += "C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt"
+}
