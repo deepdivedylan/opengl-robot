@@ -17,6 +17,7 @@ macx {
 }
 win32 {
 	# downloading Windows 10 SDK is necessary in addition to Visual Studio
+	# https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk
 	DEFINES = Win32
 	INCLUDEPATH += "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include"
 	INCLUDEPATH += "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include"
