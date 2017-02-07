@@ -1,3 +1,5 @@
 /Makefile*
+/debug
+/release
 *.o
 moc_*.cpp
