@@ -1,5 +1,6 @@
 /Makefile*
 /debug
 /release
+.qmake.stash
 *.o
 moc_*.cpp
