@@ -1,6 +1,11 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
+#ifdef Win32
+#include <cctype>
+#include <windows.h>
+#endif
+
 #ifndef MacOSX
 #include <GL/gl.h>
 #include <GL/glu.h>
