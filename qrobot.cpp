@@ -348,7 +348,7 @@ void QRobot::mousePressEvent(QMouseEvent *event)
 {
 	lastPos = event->pos();
 	if (!viewMode && (event->buttons() & Qt::MidButton))
-		Error("The forearm and wrist are now controlled by the left button.");
+		Error((char  *)"The forearm and wrist are now controlled by the left button.");
 }
 
 //! Mouse Drag Handler
